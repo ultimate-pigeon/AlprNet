@@ -94,7 +94,9 @@ public class LicensePlateDetector : IDisposable
 
         var resized = new Mat();
         Cv2.Resize(src, resized, new Size(newW, newH));
-        Cv2.CopyMakeBorder(resized, resized, dh, dh, dw, dw, BorderTypes.Constant, Scalar.All(114));
+        int top = dh, bottom = newSize - newH - dh;
+        int left = dw, right = newSize - newW - dw;
+        Cv2.CopyMakeBorder(resized, resized, top, bottom, left, right, BorderTypes.Constant, Scalar.All(114));
 
         return (resized, r, (dw, dh));
     }
